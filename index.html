@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EPIC STORE LOCATOR</title>
+    <link rel="stylesheet" href="style/style.css" />
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+  </head>
+  <body>
+    <div class="search-container">
+      <div class="search">
+        <input type="text" placeholder="Enter zip" />
+        <i class="fas fa-search"></i>
+      </div>
+    </div>
+    <div class="stores-list-container">
+      <div class="stores-list">
+        <div class="title">Store Locator</div>
+        <div class="store">
+          <div class="store_contact">
+            <div class="store_contact-adress">
+              8480 Beverly Blvd <br />
+              Los Angeles, CA 90048
+            </div>
+            <div class="store_contact-phone">356-345-4654</div>
+          </div>
+          <div class="store_index">1</div>
+        </div>
+        <!-- <div class="store-container">
+          <div class="store-address">
+            21024 Otoe Rd, Apple Valley, CA 92307, United States
+          </div>
+          <div class="store-phone-number">+1 760-240-7000</div>
+          <div class="store-index">2</div>
+        </div>
+        <div class="store-container">
+          <div class="store-address">
+            39148 CA-18, Big Bear Lake, CA 92315, United States
+          </div>
+          <div class="store-phone-number">+1 909-866-5831</div>
+          <div class="store-index">3</div>
+        </div> -->
+      </div>
+    </div>
+    <div id="map"></div>
+    <script>
+      var map
+      function initMap() {
+        var losAngeles = {
+          lat: 34.06338,
+          lng: -118.35808,
+        }
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: losAngeles,
+          zoom: 8,
+        })
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({ position: losAngeles, map: map })
+      }
+    </script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh15L6ZQVrZVsMjwAhb_3-X6bbgpSGtQk&callback=initMap"
+      async
+      defer
+    ></script>
+  </body>
+</html>
