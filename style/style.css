@@ -115,3 +115,47 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.store-info-window > div {
+  padding: 5px 0;
+}
+
+.store-info-window a {
+  text-decoration: none;
+}
+
+.store-info-name {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.store-info-address a,
+.store-info-phone {
+  display: flex;
+  align-items: center;
+}
+
+.store-info-status {
+  border-bottom: 1px solid #e8dfdf;
+  color: #7a7474;
+}
+
+.circle {
+  background-color: #1985a1;
+  color: white;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-right: 8px;
+}
+
+.store-info-address .circle,
+.store-info-phone .circle {
+  width: 30px;
+  height: 30px;
+}
+
+svg {
+  fill: red;
+}
