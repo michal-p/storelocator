@@ -120,16 +120,19 @@ body {
   padding: 5px 0;
 }
 
+.store-info-window a {
+  text-decoration: none;
+}
+
 .store-info-name {
   font-weight: bold;
   font-size: 1.5em;
 }
 
-.store-info-address,
+.store-info-address a,
 .store-info-phone {
   display: flex;
   align-items: center;
-  display: flex;
 }
 
 .store-info-status {
@@ -151,4 +154,8 @@ body {
 .store-info-phone .circle {
   width: 30px;
   height: 30px;
+}
+
+svg {
+  fill: red;
 }

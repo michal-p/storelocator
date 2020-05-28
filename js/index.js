@@ -278,10 +278,12 @@ function createMarker(latlng, name, address, openUntil, storeNumber) {
         ${openUntil}
     </div>
     <div class="store-info-address">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=${latlng.lat()},${latlng.lng()}&travelmode=flights&origin=Vancouver">
         <div class="circle">
               <i class="fas fa-location-arrow" aria-hidden="true"></i>
         </div>
         <span>${address}</span>
+      </a>
     </div>
     <div class="store-info-phone">
         <div class="circle">
@@ -290,12 +292,15 @@ function createMarker(latlng, name, address, openUntil, storeNumber) {
         <span>${storeNumber}</span>
     </div>
   </div>`
+
   var marker = new google.maps.Marker({
     map: map,
     position: latlng,
     // draggable:true,
     title: name,
     animation: google.maps.Animation.DROP,
+    // icon: 'icons/SVG/Artboard56star-rate.svg'
+    icon: 'icons/PNG/restaurants-and-cafes-vector-free-icon-set-26.png'
 
   });
   google.maps.event.addListener(marker, 'click', function() {
