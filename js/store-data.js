@@ -1,4 +1,5 @@
-let stores = [{
+let stores = [
+    {
     "recommendation": {},
     "storeNumber": "5758-13907",
     "id": "15051",
