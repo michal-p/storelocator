@@ -227,32 +227,78 @@ function initMap() {
   })
   var marker = new google.maps.Marker({ position: losAngeles, map: map })
   infoWindow = new google.maps.InfoWindow();
-  displayStores()
-  showStoresMarkers()
+  searchStores()
 }
 
-function displayStores() {
+function searchStores() {
+  var zipCode = document.getElementById('zip-code-input')
+  displayStores(stores) //display on  load
+  showStoresMarkers(stores)
+  setOnClickListener()
+  zipCode.addEventListener('input', function () {
+    var foundStores = []
+    stores.forEach(function(store) {
+      var postal = store.address.postalCode.substring(0, 5)
+      if(postal === zipCode.value) {
+        foundStores.push(store)
+      }
+    })
+    console.log('foundStores: ', foundStores)
+    clearLocations()
+    if(foundStores.length) {
+      displayStores(foundStores)
+      showStoresMarkers(foundStores)
+      setOnClickListener()
+    } else if(zipCode.value === '') {
+      displayStores(stores) //display on  load
+      showStoresMarkers(stores)
+      setOnClickListener()
+    } else {
+      displayStores([]) //display on  load
+      showStoresMarkers(null)
+    }
+  })
+}
+
+function clearLocations() {
+  infoWindow.close()
+  for (let i = 0; i < markers.length; i++) {
+    const element = markers[i].setMap(null)
+  }
+  markers.length = 0
+}
+function setOnClickListener() {
+  var storeElements = document.querySelectorAll('.store')
+  storeElements.forEach(function(store, index) {
+    store.addEventListener('click', function() {
+      google.maps.event.trigger(markers[index], 'click')
+    })
+  })
+}
+
+function displayStores(stores) {
+  debugger
   var storesHtml = ""
   stores.forEach(function(store, index) {
     var address = store.addressLines
     var phone = store.phoneNumber
     storesHtml += `
       <div class="store">
-        <div class="store_contact">
-          <div class="store_contact-adress">
-            ${address[0]}<br />
-            ${address[1]}
+          <div class="store_contact">
+            <div class="store_contact-adress">
+              ${address[0]}<br />
+              ${address[1]}
+            </div>
+            <div class="store_contact-phone">${phone}</div>
           </div>
-          <div class="store_contact-phone">${phone}</div>
-        </div>
-        <div class="store_index">${index + 1}</div>
+          <div class="store_index">${index + 1}</div>
       </div>
     `
-    document.querySelector('.stores-list').innerHTML = storesHtml
   })
+  document.querySelector('.stores-list').innerHTML = storesHtml
 }
 
-function showStoresMarkers() {
+function showStoresMarkers(stores) {
   var bounds = new google.maps.LatLngBounds();
   stores.forEach(function(store, index) {
     var latlng = new google.maps.LatLng(
@@ -264,12 +310,12 @@ function showStoresMarkers() {
     var openUntil = store.openStatusText
     var storeNumber = store.storeNumber
     bounds.extend(latlng)
-    createMarker(latlng, name, address, openUntil, storeNumber)
+    createMarker(latlng, name, address, openUntil, storeNumber, index)
   })
   map.fitBounds(bounds)
 }
 
-function createMarker(latlng, name, address, openUntil, storeNumber) {
+function createMarker(latlng, name, address, openUntil, storeNumber, index) {
   var html = `<div class="store-info-window">
     <div class="store-info-name">
       <span>${name}</span>
@@ -298,9 +344,10 @@ function createMarker(latlng, name, address, openUntil, storeNumber) {
     position: latlng,
     // draggable:true,
     title: name,
-    animation: google.maps.Animation.DROP,
+    // animation: google.maps.Animation.DROP,
     // icon: 'icons/SVG/Artboard56star-rate.svg'
-    icon: 'icons/PNG/restaurants-and-cafes-vector-free-icon-set-26.png'
+    icon: 'icons/PNG/restaurants-and-cafes-vector-free-icon-set-26.png',
+    label: `${index + 1}`
 
   });
   google.maps.event.addListener(marker, 'click', function() {
